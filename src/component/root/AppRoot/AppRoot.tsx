@@ -10,18 +10,23 @@
 
 import React, {useState} from 'react';
 import {
-  Button,
   FlatList,
+  ListRenderItemInfo,
   SafeAreaView,
   StyleSheet,
-  Text,
-  TextInput,
   View,
 } from 'react-native';
+import GoalForm from '../../form/GoalForm';
+import GoalItem from '../../list/GoalItem';
+
+export interface GoalItemProps {
+  id: string;
+  value: string;
+}
 
 const AppRoot = () => {
   const [enteredGoal, setEnteredGoal] = useState('');
-  const [courseGoals, setCourseGoal] = useState<Record<string, string>[]>([]);
+  const [courseGoals, setCourseGoal] = useState<GoalItemProps[]>([]);
 
   const handleGoalInput = (input: string) => {
     setEnteredGoal(input);
@@ -39,21 +44,17 @@ const AppRoot = () => {
     <SafeAreaView>
       <View style={styles.container}>
         <View style={styles.inputContainer}>
-          <TextInput
-            placeholder="Enter some juicy text..."
-            style={styles.input}
-            onChangeText={handleGoalInput}
-            value={enteredGoal}
+          <GoalForm
+            enteredGoal={enteredGoal}
+            handleGoalInput={handleGoalInput}
+            handleNewGoal={handleNewGoal}
           />
-          <Button title="Add" onPress={handleNewGoal} />
         </View>
         <FlatList
           keyExtractor={item => item.id}
           data={courseGoals}
-          renderItem={goal => (
-            <View style={styles.listItem}>
-              <Text style={styles.item}>{goal.item.value}</Text>
-            </View>
+          renderItem={(goalItem: ListRenderItemInfo<GoalItemProps>) => (
+            <GoalItem goalItem={goalItem} />
           )}
         />
       </View>
@@ -70,24 +71,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-  },
-  input: {
-    borderBottomColor: 'black',
-    borderBottomWidth: 1,
-    paddingBottom: 10,
-    width: '80%',
-  },
-  listItem: {
-    padding: 10,
-    marginBottom: 5,
-    backgroundColor: '#eef8ff',
-    borderColor: '#14110F',
-    borderWidth: 1,
-    borderTopRightRadius: 100,
-    borderBottomRightRadius: 100,
-  },
-  item: {
-    paddingVertical: 2,
   },
 });
 
