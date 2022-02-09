@@ -11,6 +11,7 @@
 import React, {useState} from 'react';
 import {
   Button,
+  FlatList,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -20,14 +21,17 @@ import {
 
 const AppRoot = () => {
   const [enteredGoal, setEnteredGoal] = useState('');
-  const [courseGoals, setCourseGoal] = useState<string[]>([]);
+  const [courseGoals, setCourseGoal] = useState<Record<string, string>[]>([]);
 
   const handleGoalInput = (input: string) => {
     setEnteredGoal(input);
   };
 
   const handleNewGoal = () => {
-    setCourseGoal(currentGoal => [...currentGoal, enteredGoal]);
+    setCourseGoal(currentGoal => [
+      ...currentGoal,
+      {id: Math.random().toString(), value: enteredGoal},
+    ]);
     setEnteredGoal('');
   };
 
@@ -43,13 +47,15 @@ const AppRoot = () => {
           />
           <Button title="Add" onPress={handleNewGoal} />
         </View>
-        <View>
-          {courseGoals.map((goal: string) => (
-            <View key={goal} style={styles.listItem}>
-              <Text style={styles.item}>{goal}</Text>
+        <FlatList
+          keyExtractor={item => item.id}
+          data={courseGoals}
+          renderItem={goal => (
+            <View style={styles.listItem}>
+              <Text style={styles.item}>{goal.item.value}</Text>
             </View>
-          ))}
-        </View>
+          )}
+        />
       </View>
     </SafeAreaView>
   );
