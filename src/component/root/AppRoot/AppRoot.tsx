@@ -9,20 +9,12 @@
  */
 
 import React, {useState} from 'react';
-import {
-  FlatList,
-  ListRenderItemInfo,
-  SafeAreaView,
-  StyleSheet,
-  View,
-} from 'react-native';
+import {FlatList, ListRenderItemInfo, SafeAreaView, View} from 'react-native';
 import GoalForm from '../../form/GoalForm';
 import GoalItem from '../../list/GoalItem';
 
-export interface GoalItemProps {
-  id: string;
-  value: string;
-}
+import styles from './AppRoot.styles';
+import {GoalItemProps} from './AppRoot.types';
 
 const AppRoot = () => {
   const [enteredGoal, setEnteredGoal] = useState('');
@@ -61,17 +53,5 @@ const AppRoot = () => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 30,
-    flexDirection: 'column',
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-});
 
 export default AppRoot;
