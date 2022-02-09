@@ -46,7 +46,7 @@ const AppRoot = () => {
           keyExtractor={item => item.id}
           data={courseGoals}
           renderItem={(goalItem: ListRenderItemInfo<GoalItemProps>) => (
-            <GoalItem goalItem={goalItem} />
+            <GoalItem title={goalItem.item.value} />
           )}
         />
       </View>
