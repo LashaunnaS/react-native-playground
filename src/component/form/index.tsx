@@ -1,1 +1,1 @@
-export { default } from './GoalForm';
+export {default} from './GoalForm';

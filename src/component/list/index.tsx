@@ -1,1 +1,1 @@
-export { default } from './GoalItem';
+export {default} from './GoalItem';
