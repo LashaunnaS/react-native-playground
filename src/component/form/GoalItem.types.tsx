@@ -1,5 +1,6 @@
 export interface GoalFormProps {
-  enteredGoal: string;
-  handleGoalInput: (input: string) => void;
-  handleNewGoal: () => void;
+  handleNewGoal: (
+    goalTitle: string,
+    setEnteredGoal: (goalTitle: string) => void,
+  ) => void;
 }

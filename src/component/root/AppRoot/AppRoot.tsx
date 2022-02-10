@@ -17,17 +17,15 @@ import styles from './AppRoot.styles';
 import {GoalItemProps} from './AppRoot.types';
 
 const AppRoot = () => {
-  const [enteredGoal, setEnteredGoal] = useState('');
   const [courseGoals, setCourseGoal] = useState<GoalItemProps[]>([]);
 
-  const handleGoalInput = (input: string) => {
-    setEnteredGoal(input);
-  };
-
-  const handleNewGoal = () => {
+  const handleNewGoal = (
+    goalTitle: string,
+    setEnteredGoal: (goalTitle: string) => void,
+  ) => {
     setCourseGoal(currentGoal => [
       ...currentGoal,
-      {id: Math.random().toString(), value: enteredGoal},
+      {id: Math.random().toString(), value: goalTitle},
     ]);
     setEnteredGoal('');
   };
@@ -36,11 +34,7 @@ const AppRoot = () => {
     <SafeAreaView>
       <View style={styles.container}>
         <View style={styles.inputContainer}>
-          <GoalForm
-            enteredGoal={enteredGoal}
-            handleGoalInput={handleGoalInput}
-            handleNewGoal={handleNewGoal}
-          />
+          <GoalForm handleNewGoal={handleNewGoal} />
         </View>
         <FlatList
           keyExtractor={item => item.id}
